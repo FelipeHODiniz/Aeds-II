@@ -57,62 +57,84 @@ void imprimirShow(Show s) {
     printf("] ##\n");
 }
 
+int compararStrings(const void *a, const void *b) {
+    const char *sa = (const char *)a;
+    const char *sb = (const char *)b;
+    return strcmp(sa, sb);
+}
+
+
 void splitList(char *str, char list[][MAX_STR], int *len) {
     *len = 0;
     char *token = strtok(str, ",");
+
     while (token && *len < MAX_LIST) {
-        trim(token);
-        strcpy(list[(*len)++], token);
+        while (*token == ' ') token++;  // apenas tira espaços à esquerda
+
+        strncpy(list[*len], token, MAX_STR - 1);
+        list[*len][MAX_STR - 1] = '\0';
+        (*len)++;
+
         token = strtok(NULL, ",");
     }
+
+    qsort(list, *len, MAX_STR, compararStrings);
 }
+
 
 void lerShow(Show *s, char *linha) {
     inicializarShow(s);
 
-    char *campos[11];
-    int i = 0;
+    char *campos[20];
+    int campoIndex = 0;
+
+    char *token = malloc(strlen(linha) + 1);
+    int i = 0, j = 0;
     bool aspas = false;
-    char *ptr = strtok(linha, "");
-    char *campo = malloc(MAX_STR);
-    int campo_idx = 0;
 
-    for (int j = 0; linha[j] != '\0'; j++) {
-        char c = linha[j];
-        if (c == '\"') aspas = !aspas;
-        else if (c == ',' && !aspas) {
-            campo[campo_idx] = '\0';
-            campos[i++] = strdup(campo);
-            campo_idx = 0;
+    while (linha[i]) {
+        if (linha[i] == '\"') {
+            aspas = !aspas;
+        } else if (linha[i] == ',' && !aspas) {
+            token[j] = '\0';
+            campos[campoIndex++] = strdup(token);
+            j = 0;
         } else {
-            campo[campo_idx++] = c;
+            token[j++] = linha[i];
         }
+        i++;
     }
 
-    campo[campo_idx] = '\0';
-    campos[i++] = strdup(campo);
-    free(campo);
+    token[j] = '\0';
+    campos[campoIndex++] = strdup(token);
+    free(token);
 
-    strcpy(s->show_id, campos[0] && strlen(campos[0]) ? campos[0] : "NaN");
-    strcpy(s->type, campos[1] && strlen(campos[1]) ? campos[1] : "NaN");
-    strcpy(s->title, campos[2] && strlen(campos[2]) ? campos[2] : "NaN");
-    strcpy(s->director, campos[3] && strlen(campos[3]) ? campos[3] : "NaN");
+    #define GET_CAMPO(i) ((i < campoIndex && strlen(campos[i]) > 0) ? campos[i] : "NaN")
 
-    if (campos[4] && strlen(campos[4])) {
-        splitList(campos[4], s->cast, &s->cast_len);
+    strncpy(s->show_id, GET_CAMPO(0), MAX_STR - 1);
+    strncpy(s->type, GET_CAMPO(1), MAX_STR - 1);
+    strncpy(s->title, GET_CAMPO(2), MAX_STR - 1);
+    strncpy(s->director, GET_CAMPO(3), MAX_STR - 1);
+
+    if (strcmp(GET_CAMPO(4), "NaN") != 0) {
+        char castBuffer[500];
+        strncpy(castBuffer, campos[4], sizeof(castBuffer) - 1);
+        splitList(castBuffer, s->cast, &s->cast_len);
     }
 
-    strcpy(s->country, campos[5] && strlen(campos[5]) ? campos[5] : "NaN");
-    strcpy(s->date_added, campos[6] && strlen(campos[6]) ? campos[6] : "NaN");
-    s->release_year = (campos[7] && strlen(campos[7])) ? atoi(campos[7]) : 0;
-    strcpy(s->rating, campos[8] && strlen(campos[8]) ? campos[8] : "NaN");
-    strcpy(s->duration, campos[9] && strlen(campos[9]) ? campos[9] : "NaN");
+    strncpy(s->country, GET_CAMPO(5), MAX_STR - 1);
+    strncpy(s->date_added, GET_CAMPO(6), MAX_STR - 1);
+    s->release_year = (strcmp(GET_CAMPO(7), "NaN") != 0) ? atoi(GET_CAMPO(7)) : 0;
+    strncpy(s->rating, GET_CAMPO(8), MAX_STR - 1);
+    strncpy(s->duration, GET_CAMPO(9), MAX_STR - 1);
 
-    if (campos[10] && strlen(campos[10])) {
-        splitList(campos[10], s->listed_in, &s->listed_len);
+    if (strcmp(GET_CAMPO(10), "NaN") != 0) {
+        char listBuffer[500];
+        strncpy(listBuffer, campos[10], sizeof(listBuffer) - 1);
+        splitList(listBuffer, s->listed_in, &s->listed_len);
     }
 
-    for (int k = 0; k < i; k++) free(campos[k]);
+    for (int k = 0; k < campoIndex; k++) free(campos[k]);
 }
 
 int main() {
