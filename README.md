@@ -24,7 +24,7 @@ Repositório com exercícios, trabalhos e anotações da disciplina **Algoritmos
 ## 🚀 Como Executar
 1. **Clonar o repositório**
    ```bash
-   git clone https://github.com/seu-usuario/aeds2.git
+   git clone https://github.com/FelipeHODiniz/Aeds-II.git
    ```
 
 2. **Compilar e executar (C)**
@@ -50,5 +50,4 @@ Repositório com exercícios, trabalhos e anotações da disciplina **Algoritmos
 
 ## ✍️ Autor
 **Felipe Henrique Oliveira Diniz**  
-📧 felipe.henrique@email.com  
-🌐 [GitHub - seu-usuario](https://github.com/seu-usuario)
+📧 felipehenriqueodiniz@gmail.com  
