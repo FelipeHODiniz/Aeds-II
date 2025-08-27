@@ -25,18 +25,29 @@ bool isPalindromo(char linha[], int i, int j)
 int getSize(char linha[])
 {
     int cont = 0;
-    for(int i = 0; linha[i] != '\0'; i++)
+    for(int i = 0; linha[i] != '\0' ; i++)
     {
         cont++;
     }
     return cont-1;
 }
 
+void removeEnter(char linha[]) {
+    int i = 0;
+    while (linha[i] != '\0') {
+        if (linha[i] == '\n') {
+            linha[i] = '\0';
+            i--;
+        }
+        i++;
+    }
+}
+
 int main()
 {
     char linha[100];
-
-    scanf("%s", linha);
+    fgets(linha, sizeof(linha), stdin);
+    removeEnter(linha);
 
     while(!(isFim(linha)))
     {
@@ -49,10 +60,9 @@ int main()
         {
             printf("NAO\n");
         }
-        scanf("%s", linha);
+        fgets(linha, sizeof(linha), stdin);
+        removeEnter(linha);
     }
-
-
-
+    
     return 0;
 }
