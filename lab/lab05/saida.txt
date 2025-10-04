@@ -1,0 +1,39 @@
+AOrdenado - FirstPivot (100): 0.073583 ms
+AOrdenado - LastPivot  (100): 0.072167 ms
+AOrdenado - RandomPivot(100): 0.056042 ms
+AOrdenado - Median3    (100): 0.02675 ms
+QuaseOrde - FirstPivot (100): 0.065291 ms
+QuaseOrde - LastPivot  (100): 0.038333 ms
+QuaseOrde - RandomPivot(100): 0.048042 ms
+QuaseOrde - Median3    (100): 0.024333 ms
+Aleatorio - FirstPivot (100): 0.019333 ms
+Aleatorio - LastPivot  (100): 0.028542 ms
+Aleatorio - RandomPivot(100): 0.072875 ms
+Aleatorio - Median3    (100): 0.0435 ms
+---------------------------
+AOrdenado - FirstPivot (1000): 1.761958 ms
+AOrdenado - LastPivot  (1000): 1.744459 ms
+AOrdenado - RandomPivot(1000): 0.281875 ms
+AOrdenado - Median3    (1000): 0.228333 ms
+QuaseOrde - FirstPivot (1000): 0.133709 ms
+QuaseOrde - LastPivot  (1000): 0.169542 ms
+QuaseOrde - RandomPivot(1000): 0.092417 ms
+QuaseOrde - Median3    (1000): 0.059166 ms
+Aleatorio - FirstPivot (1000): 0.113416 ms
+Aleatorio - LastPivot  (1000): 0.118916 ms
+Aleatorio - RandomPivot(1000): 0.139 ms
+Aleatorio - Median3    (1000): 0.11775 ms
+---------------------------
+AOrdenado - FirstPivot (10000): 48.937166 ms
+AOrdenado - LastPivot  (10000): 42.727959 ms
+AOrdenado - RandomPivot(10000): 0.375709 ms
+AOrdenado - Median3    (10000): 0.515625 ms
+QuaseOrde - FirstPivot (10000): 0.449333 ms
+QuaseOrde - LastPivot  (10000): 0.655541 ms
+QuaseOrde - RandomPivot(10000): 0.429 ms
+QuaseOrde - Median3    (10000): 0.591334 ms
+Aleatorio - FirstPivot (10000): 0.844583 ms
+Aleatorio - LastPivot  (10000): 0.900083 ms
+Aleatorio - RandomPivot(10000): 1.016417 ms
+Aleatorio - Median3    (10000): 1.426834 ms
+---------------------------
